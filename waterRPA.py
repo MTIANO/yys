@@ -3,6 +3,9 @@ import time
 import xlrd
 import pyperclip
 import sys
+import random
+
+from xlrd.biffh import XL_NUMBER
 
 #定义鼠标事件
 
@@ -13,25 +16,49 @@ def mouseClick(clickTimes,lOrR,img,reTry):
         while True:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
-                break
-            print("未找到匹配图片,0.1秒后重试")
-            time.sleep(0.1)
+                img_list=pyautogui.locateOnScreen(img)
+                if img_list is not None:
+                    print(img_list)
+                    width=location.x+random.randint(int(img_list.width/2)-img_list.width,int(img_list.width/2))
+                    height=location.y+random.randint(int(img_list.height/2)-img_list.height,int(img_list.height/2))
+                    print(img_list)
+                    print(width)
+                    print(height)
+                    pyautogui.click(width,height,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+                    break
+            print("未找到匹配图片,0.5秒后重试")
+            time.sleep(0.5)
     elif reTry == -1:
         while True:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
-            time.sleep(0.1)
+                img_list=pyautogui.locateOnScreen(img)
+                if img_list is not None:
+                    print(img_list)
+                    width=location.x+random.randint(int(img_list.width/2)-img_list.width,int(img_list.width/2))
+                    height=location.y+random.randint(int(img_list.height/2)-img_list.height,int(img_list.height/2))
+                    print(img_list)
+                    print(width)
+                    print(height)
+                    pyautogui.click(width,height,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+            time.sleep(0.5)
     elif reTry > 1:
         i = 1
         while i < reTry + 1:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+                img_list=pyautogui.locateOnScreen(img)
+                if img_list is not None:
+                    print(img_list)
+                    width=location.x+random.randint(int(img_list.width/2)-img_list.width,int(img_list.width/2))
+                    height=location.y+random.randint(int(img_list.height/2)-img_list.height,int(img_list.height/2))
+                    print(img_list)
+                    print(width)
+                    print(height)
+                    pyautogui.click(width,height,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
                 print("重复")
                 i += 1
-            time.sleep(0.1)
+            time.sleep(0.5)
 
 
 
